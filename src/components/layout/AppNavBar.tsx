@@ -1,23 +1,6 @@
-import { Link, useNavigate} from "react-router-dom"
+import { Link} from "react-router-dom"
 
 const AppNavbar = () => {
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
-
-  const userJson = localStorage.getItem("user");
-
-  let user;
-
-  try {
-    user = userJson ? JSON.parse(userJson) : null;
-  } catch (error) {
-    console.error(error);
-  }
 
 
 return (
@@ -31,14 +14,9 @@ return (
         <li>
           <Link to="/products">Products</Link>
         </li>
-        {user?.role === "admin" && (
           <li>
             <Link to="/users">Users</Link>
           </li>
-        )}
-         <li>
-          <button onClick={handleLogout}>Logout</button>
-        </li>
       </ul>
     </nav>
   )
