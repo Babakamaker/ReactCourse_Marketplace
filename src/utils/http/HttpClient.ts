@@ -71,7 +71,7 @@ export class HttpClient {
     this.axiosInstance.interceptors.request.use(
       (config) => {
         const apiKey =
-          localStorage.getItem("apiKey") ?? "SrFeARsHHeiM2kaAABFGnnlk6Tgu4Wzt";
+          localStorage.getItem("apiKey");
 
         if (apiKey) {
           config.params = { ...config.params, "api-key": apiKey };
