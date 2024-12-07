@@ -70,18 +70,6 @@ export class ProductService {
     );
   }
 
-  /** Get product categories */
-  public async getProductCategories() {
-    return await this.httpClient.get<string[]>("/categories");
-  }
-
-  /** Get products by category */
-  public async getProductsByCategory(category: string) {
-    return await this.httpClient.get<PaginatedProductResponse>(
-      `/category/${category}`
-    );
-  }
-
   /** Add a new product */
   public async addProduct(product: CreateProductRequest) {
     return await this.httpClient.post<Product, CreateProductRequest>("/add", product);

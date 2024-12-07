@@ -12,11 +12,12 @@ const ProductTableContainer = () => {
   useEffect(() => {
     let isMounted = true;
     const abortController = new AbortController();
+    const productService = new ProductService(abortController.signal);
 
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await new ProductService(abortController.signal).getAllProducts();
+        const response = await productService.getAllProducts();
         if (isMounted) setProductList(response.products);
       } catch (error) {
         setError((error as AxiosError).message);
@@ -36,7 +37,9 @@ const ProductTableContainer = () => {
   const handleProductDelete = async (id: number) => {
     try {
       setLoading(true);
-      await new ProductService().deleteProduct(id);
+      const abortController = new AbortController();
+      const productService = new ProductService(abortController.signal);
+        await productService.deleteProduct(id);
       setProductList((prev) => prev.filter((product) => product.id !== id));
     } catch (error) {
       setError((error as AxiosError).message);
@@ -50,7 +53,9 @@ const ProductTableContainer = () => {
 
     try {
       setLoading(true);
-      await new ProductService().updateProduct(editProduct.id, { title: editProduct.title });
+      const abortController = new AbortController();
+      const productService = new ProductService(abortController.signal);
+      await productService.updateProduct(editProduct.id, { title: editProduct.title });
       setProductList((prev) =>
         prev.map((product) =>
           product.id === editProduct.id ? { ...product, title: editProduct.title } : product
