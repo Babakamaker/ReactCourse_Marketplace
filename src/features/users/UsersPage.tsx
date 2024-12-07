@@ -1,8 +1,11 @@
+import PageTitle from "../../components/layout/PageTitle"
+import UserTableContainer from "./components/table/UserTableContainer"
+
 const UsersPage = () => {
   return (
     <div>
-      <h1>Users Page</h1>
-      <p>Welcome to the users page</p>
+<PageTitle title="Marketplace" />
+<UserTableContainer />
     </div>
   )
 }

@@ -2,11 +2,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Layout from "../components/layout/Layout";
 import HomePage from "../features/home/HomePage";
-import ProductsPage from "../features/products/components/ProductsPage";
+import ProductsPage from "../features/products/ProductsPage";
 import UsersPage from "../features/users/UsersPage";
 import NotFoundPage from "../components/NotFoundPage";
 import LoginPage from "../features/auth/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
+import CategoryProductsPage from "../features/categories/CategoryProductsPage";
+
 
 const AppRouter = () => {
   return (
@@ -37,6 +39,14 @@ const AppRouter = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+          path="/products/:category"
+           element={
+            <ProtectedRoute>
+            <CategoryProductsPage />
+          </ProtectedRoute>
+        }
+         />
           <Route
             path="/users"
             element={

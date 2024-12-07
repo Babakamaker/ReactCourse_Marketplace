@@ -1,10 +1,14 @@
+import PageTitle from "../../components/layout/PageTitle"
+import HomeContainer from "./components/HomeContainer"
+
 const HomePage = () => {
   return (
     <div>
-      <h1>Home Page</h1>
-      <p>Welcome to the home page</p>
+<PageTitle title="Marketplace" />
+<HomeContainer />
     </div>
   )
 }
+
 
 export default HomePage
