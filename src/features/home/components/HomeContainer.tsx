@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Category, CategoryService } from "../../categories/services/category.service";
 import HomeCategoryCard from "./HomeCategoryCard";
