@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import Table from "react-bootstrap/Table";
 import { Product } from "../../../products/services/product.service";
 
 interface CategoryProductsTableProps {
@@ -23,7 +24,7 @@ const CategoryProductsTable = ({
   const currentUser = JSON.parse(localStorage.getItem("user") || "{}");
   const isAdmin = currentUser?.role === "admin";
   return (
-    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
+    <Table striped bordered hover responsive>
       <thead>
         <tr>
           <th>ID</th>
@@ -62,7 +63,6 @@ const CategoryProductsTable = ({
             <td>{product.stock}</td>
             {isAdmin && (
             <td>
-              <div style={{ display: "flex", gap: "1em" }}>
                 {editProduct?.id === product.id ? (
                   <>
                     <button onClick={onSaveProductButtonClick}>Save</button>
@@ -74,13 +74,12 @@ const CategoryProductsTable = ({
                     <button onClick={() => onProductDelete(product.id)}>Delete</button>
                   </>
                 )}
-              </div>
             </td>
             )}
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Container, Card, Alert } from "react-bootstrap";
 
 const users = [
   {
@@ -19,6 +20,7 @@ const LoginPage = () => {
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleUserNameInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -38,72 +40,55 @@ const LoginPage = () => {
     const user = users.find((user) => user.userName === userName);
 
     if (!user) {
-      alert("User does not exist");
+      setError("User does not exist");
       return;
     }
 
     if (user.password !== password) {
-      alert("Invalid password");
+      setError("Invalid password");
       return;
     }
 
     localStorage.setItem("user", JSON.stringify(user));
+    setError(null);
 
     if (user.role === "admin") {
       navigate("/users");
-
-      return;
-    }
-
-    if (user.role === "user") {
+    } else if (user.role === "user") {
       navigate("/");
-
-      return;
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "960px",
-      }}
-    >
-      <h1>Login</h1>
-      <div
-        style={{
-          padding: "1.5em",
-          border: "1px solid #ccc",
-        }}
-      >
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              id="username"
-              name="username"
+    <Container className="d-flex justify-content-center align-items-center min-vh-100">
+      <Card style={{ width: "100%", maxWidth: "400px" }} className="p-4 shadow">
+        <Card.Title className="text-center">Login</Card.Title>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
               type="text"
+              placeholder="Enter your username"
               value={userName}
               onChange={handleUserNameInputChange}
             />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              name="paswword"
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
               type="password"
+              placeholder="Enter your password"
               value={password}
               onChange={handlePasswordInputChange}
             />
-          </div>
-          <button type="submit">Login</button>
-        </form>
-      </div>
-    </div>
+          </Form.Group>
+          <Button type="submit" className="w-100">
+            Login
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 
