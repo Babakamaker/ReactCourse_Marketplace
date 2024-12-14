@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import Table from "react-bootstrap/Table";
 
 interface User {
   id: number;
@@ -28,7 +29,7 @@ const UserTable = ({
   onCancelEditUser,
 }: UsersTableProps) => {
   return (
-    <table>
+    <Table striped bordered hover responsive>
       <thead>
         <tr>
           <th>ID</th>
@@ -58,7 +59,6 @@ const UserTable = ({
             <td>{user.email}</td>
             <td>{user.role}</td>
             <td>
-              <div style={{ display: "flex", gap: "1em" }}>
                 {editUser?.id === user.id ? (
                   <>
                     <button onClick={onSaveUserButtonClick}>Save</button>
@@ -70,12 +70,11 @@ const UserTable = ({
                     <button onClick={() => onUserDelete(user.id)}>Delete</button>
                   </>
                 )}
-              </div>
             </td>
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 
